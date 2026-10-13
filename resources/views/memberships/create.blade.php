@@ -1,30 +1,32 @@
-
-@extends('layouts.app')
-
-@section('title', 'Add Membership')
-
-@section('content')
-<h2 class="page-title mb-4">Add Membership</h2>
-
-@if ($students->isEmpty() || $organizations->isEmpty())
-    <div class="alert alert-warning">
-        Register at least one student and one organization first.
-        <a href="{{ route('students.create') }}">Add student</a> |
-        <a href="{{ route('organizations.create') }}">Add organization</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Membership</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5" style="max-width: 600px;">
+        <h2 class="mb-4">Register New Membership</h2>
+        <div class="card shadow-sm p-4">
+            <form action="{{ route('memberships.store') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Student Name</label>
+                    <input type="text" name="student_name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Organization</label>
+                    <input type="text" name="organization" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <input type="text" name="role" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Membership</button>
+                <a href="{{ route('memberships.index') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
     </div>
-@endif
-
-<div class="card">
-    <div class="card-body p-4">
-        <form action="{{ route('memberships.store') }}" method="POST">
-            @csrf
-            @include('memberships.form')
-
-            <button class="btn btn-primary" @disabled($students->isEmpty() || $organizations->isEmpty())>
-                Save Membership
-            </button>
-            <a href="{{ route('memberships.index') }}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-</div>
-@endsection
+</body>
+</html>

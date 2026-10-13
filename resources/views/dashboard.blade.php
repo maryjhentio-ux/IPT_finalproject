@@ -1,148 +1,210 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Organization Management System</title>
-
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #263247;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .header {
-            background: #172554;
-            color: white;
-            padding: 24px 7%;
+        /* Top Header Bar */
+        .top-header {
+            background-color: #1a365d; /* Rich Dark Blue */
+            color: #ffffff;
+            padding: 24px 40px;
         }
 
-        .header h1 {
-            font-size: 27px;
+        .top-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .top-header p {
+            font-size: 0.95rem;
+            margin: 4px 0 0 0;
+            opacity: 0.9;
+        }
+
+        .admin-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .admin-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .welcome-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1a202c;
             margin-bottom: 8px;
         }
 
-        .header p {
-            color: #dbeafe;
+        .welcome-subtext {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 35px;
         }
 
-        .container {
-            width: 86%;
-            max-width: 1100px;
-            margin: 35px auto;
-        }
-
-        .welcome {
-            margin-bottom: 28px;
-        }
-
-        .welcome h2 {
-            margin-bottom: 10px;
-            color: #172554;
-        }
-
-        .welcome p {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
+        /* Cards Style */
+        .card-custom {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .card h3 {
-            color: #172554;
-            margin-bottom: 12px;
+        .card-custom:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
         }
 
-        .card p {
-            color: #64748b;
-            line-height: 1.6;
+        /* Feature Icon Box */
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
             margin-bottom: 20px;
         }
 
-        .btn {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
+        .icon-cyan {
+            background-color: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .icon-green {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        .card-title-custom {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+
+        .card-text-custom {
+            color: #4a5568;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        /* Action Buttons */
+        .btn-custom {
+            background-color: #0ea5e9; /* Bright Blue / Cyan */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 8px;
             text-decoration: none;
-            padding: 11px 17px;
-            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
         }
 
-        .btn:hover {
-            background: #1d4ed8;
-        }
-
-        .footer {
-            text-align: center;
-            color: #64748b;
-            padding: 25px;
-            margin-top: 25px;
+        .btn-custom:hover {
+            background-color: #0284c7;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <h1>Student Organization Management System</h1>
-        <p>Manage student organizations and memberships in one place.</p>
+    <!-- Header Section -->
+    <header class="top-header">
+        <div class="container-fluid px-0">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1>Student Organization Management System</h1>
+                    <p>Manage student organizations and memberships in one place.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="#" class="admin-btn">
+                        <i class="bi bi-person-badge-fill me-1"></i> Admin Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main class="container">
-        <section class="welcome">
-            <h2>Welcome to the Dashboard!</h2>
-            <p>
-                This system helps manage student organization membership
-                records. Choose an action below to get started.
-            </p>
-        </section>
+    <!-- Dashboard Main Content -->
+    <main class="main-container">
+        <h2 class="welcome-title">Welcome to the Dashboard!</h2>
+        <p class="welcome-subtext">This system helps manage student organization membership records. Choose an action below to get started.</p>
 
-        <section class="cards">
-            <div class="card">
-                <h3>Membership Management</h3>
-                <p>
-                    View membership records, register new memberships,
-                    edit existing information, and remove records.
-                </p>
-                <a href="{{ url('/memberships') }}" class="btn">
-                    Manage Memberships
-                </a>
+        <div class="row g-4">
+            <!-- Membership Management Card -->
+            <div class="col-md-6">
+                <div class="card-custom">
+                    <div class="icon-box icon-cyan">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h5 class="card-title-custom">Membership Management</h5>
+                    <p class="card-text-custom">
+                        View membership records, register new memberships, edit existing information, and remove records.
+                    </p>
+                    <a href="{{ route('memberships.index') }}" class="btn btn-custom">
+                        Manage Memberships <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Register Membership</h3>
-                <p>
-                    Open the membership registration form to add
-                    a new record to the system.
-                </p>
-                <a href="{{ url('/memberships/create') }}" class="btn">
-                    Add Membership
-                </a>
+            <!-- Register Membership Card -->
+            <div class="col-md-6">
+                <div class="card-custom">
+                    <div class="icon-box icon-green">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+                    <h5 class="card-title-custom">Register Membership</h5>
+                    <p class="card-text-custom">
+                        Open the membership registration form to add a new record to the system.
+                    </p>
+                    <a href="{{ route('memberships.create') }}" class="btn btn-custom">
+                        Add Membership <i class="bi bi-plus"></i>
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
     </main>
-
-    <footer class="footer">
-        <p>&copy; {{ date('Y') }} Student Organization Management System</p>
-    </footer>
 
 </body>
 </html>

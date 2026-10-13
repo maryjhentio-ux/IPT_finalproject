@@ -1,17 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MembershipController;
 
-Route::get('/', function () {
-    return view('dashboard', [
-        'studentCount' => \App\Models\Student::count(),
-    ]);
-});
+// Dashboard Route
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Resource route covers ALL CRUD actions (including memberships.store)
 Route::resource('memberships', MembershipController::class);
 
-// Compatibility route for the missing students.create name
-Route::get('/students/create', function () {
-    return redirect()->route('memberships.create');
-})->name('students.create');
+// Individual Membership Routes
+Route::get('/memberships', [MembershipController::class, 'index'])->name('memberships.index');
+Route::get('/memberships/create', [MembershipController::class, 'create'])->name('memberships.create');
+Route::post('/memberships', [MembershipController::class, 'store'])->name('memberships.store');
